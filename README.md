@@ -1,9 +1,10 @@
 <br/>
-<p align="center">
-
-  <img src="https://user-images.githubusercontent.com/25793226/167133926-cc1f51bb-2df4-4cc0-9cc0-cd6532cd5858.png" width=300px />
-<p/>
-<h1 align="center">Env-Typescript</h1>
+<center>
+  <p align="center">
+    <img src="https://user-images.githubusercontent.com/25793226/167133926-cc1f51bb-2df4-4cc0-9cc0-cd6532cd5858.png" width=300px />
+  <p/>
+</center>
+<h1 align="center"><a href="https://www.npmjs.com/package/env-typescript">Env-Typescript</a></h1>
 <p align="center">new generation of env loader<p/>
 <br/>
 <br/>
@@ -85,6 +86,33 @@ process.env.REGION;
 AWS.REGION;
 process.env.S3
 S3.BUCKET_NAME;
+```
+
+### Multiple config with global, local
+
+```typescript
+@LoadEnvironment('aws.global.env')
+export class AWS {
+  @Column()
+  static REGION: string;
+}
+
+@LoadEnvironment('aws.s3.korea.env', { local: true })
+export class S3_KOREA {
+  @Column()
+  static BUCKET_NAME: string;
+}
+
+@LoadEnvironment('aws.s3.japan.env', { local: true })
+export class S3_JAPAN {
+  @Column()
+  static BUCKET_NAME: string;
+}
+
+process.env.REGION;
+AWS.REGION;
+S3_KOREA.BUCKET_NAME;
+S3_JAPAN.BUCKET_NAME;
 ```
 
 ## Configuration & Setup
