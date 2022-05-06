@@ -25,7 +25,9 @@ jobs:
       - run: git config --global user.email "jeonghyeon.rhea@gmail.com"
       - run: git config --global user.name "rhea-so"
       - run: npm version patch -f
-      - run: git commit --amend -m "NPMJS Publish - ${{github.event.head_commit.message}}"
+      - run: git reset --soft HEAD~1
+      - run: git reset -- package-lock.json
+      - run: git commit -m "NPMJS Publish - ${{github.event.head_commit.message}}"
       - name: Publish Packages
         run: |
           echo '//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > .npmrc
