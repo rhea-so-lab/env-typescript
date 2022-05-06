@@ -22,12 +22,12 @@ jobs:
       - run: git config --global user.email "jeonghyeon.rhea@gmail.com"
       - run: git config --global user.name "rhea-so"
       - run: npm version patch -f
-      - run: git init
-      - run: git add .
       - run: git commit --amend -m "NPMJS Publish - ${{github.event.head_commit.message}}"
-      - run: git remote remove origin
-      - run: git remote add origin https://${{ secrets.REPO_PAT }}@github.com/rhea-so-lab/env-typescript.git
-      - run: git push -u origin production
       - run: npm run publish
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
