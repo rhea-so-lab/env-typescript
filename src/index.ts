@@ -13,7 +13,6 @@ export const INIStorage: Map<
 > = new Map<string, { name: string; type: Function }[]>();
 
 /**
- * 값을 들고 오겠다고 정의하는 데코레이터입니다.
  * ### Example
  * ```typescript
  * ㅤ@LoadFile('local')
