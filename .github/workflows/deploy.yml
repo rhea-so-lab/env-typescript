@@ -19,7 +19,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Publish Packages
         run: |
-          echo '//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > ${{ github.workspace }}/.npmrc
+          echo '//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > .npmrc
           cat .npmrc
       - run: npm install
       - run: npm run build
