@@ -18,7 +18,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
       - run: npm run build
-      - run: npm version patch
+      - run: npm version patch -f
+      - run: git push origin production
       - run: npm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
