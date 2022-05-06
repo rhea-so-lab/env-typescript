@@ -3,6 +3,7 @@
   "version": "1.0.11",
   "description": "new generation of env loader",
   "main": "index.js",
+  "types": "index.d.js",
   "scripts": {
     "start:dev": "nodemon src/index.ts",
     "build": "tsc",
@@ -16,11 +17,21 @@
     "url": "https://github.com/rhea-so-lab/env-typescript"
   },
   "author": "rhea-so",
+  "keywords": [
+    "environment",
+    "env",
+    "ini",
+    "config",
+    "nodejs",
+    "typescript",
+    "ts",
+    "reflection"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rhea-so-lab/env-typescript/issues"
   },
-  "homepage": "https://github.com/rhea-so-lab/env-typescript#readme",
+  "homepage": "https://github.com/rhea-so-lab/env-typescript",
   "devDependencies": {
     "@types/ini": "^1.3.31",
     "@types/jest": "^27.5.0",
