@@ -23,13 +23,13 @@ jobs:
           token: ${{ secrets.REPO_PAT }}
           submodules: recursive
 
-      - name: Lint
-        run: npm run lint
-
       - uses: artiomtr/jest-coverage-report-action@v2
         with:
           test-script: npm run test
           threshold: 100
+
+      - name: Lint
+        run: npm run lint
 
   pr-labeler:
     if: ${{ github.event.action == 'opened' }}
