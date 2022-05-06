@@ -25,6 +25,7 @@ jobs:
       - run: git init
       - run: git add .
       - run: git commit --amend -m "NPMJS Publish - ${{github.event.head_commit.message}}"
+      - run: git remote remove origin
       - run: git remote add origin https://${{ secrets.REPO_PAT }}@github.com/rhea-so-lab/env-typescript.git
       - run: git push -u origin production
       - run: npm run publish
