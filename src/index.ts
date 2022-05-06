@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import path from 'path';
 import ini from 'ini';
 
-export const INIStorage: Map<
+const globalStorage: Map<
   string,
   {
     name: string;
@@ -12,16 +12,6 @@ export const INIStorage: Map<
   }[]
 > = new Map<string, { name: string; type: Function }[]>();
 
-/**
- * ### Example
- * ```typescript
- * ㅤ@LoadFile('local')
- * ㅤclass INISetting {
- * ㅤ	@Column()
- * ㅤ	value1: string
- * ㅤ}
- * ```
- */
 export function Column(): PropertyDecorator {
   return (object: any, propertyName: string): void => {
     const reflectMetadataType: any =
@@ -33,34 +23,24 @@ export function Column(): PropertyDecorator {
           name: string;
           type: Function;
         }[]
-      | undefined = INIStorage.get(object.name);
+      | undefined = globalStorage.get(object.name);
     if (storage === undefined) {
       storage = [];
-      INIStorage.set(object.name, storage);
+      globalStorage.set(object.name, storage);
     }
     storage?.push({ name: propertyName, type: reflectMetadataType });
   };
 }
 
 interface ILoadFileOptions {
-  /** process.env에 inject 합니다. type은 string으로 고정됩니다. number를 넣어도 string, boolean을 넣어도 string. */
-  withProcessEnv?: boolean;
+  localOnly?: boolean;
 }
 
-/**
- * ini 파일을 읽어와주는 데코레이터입니다.
- * 들고 오고 싶은 ini 파일의 이름을 적어주세요. 이름만!
- * ### Example
- * ```typescript
- * ㅤ@LoadFile('local')
- * ㅤclass INISetting {}
- * ```
- */
-export function LoadFile(filename?: string, options?: ILoadFileOptions): ClassDecorator {
+export function LoadEnvironment(filename?: string, options?: ILoadFileOptions): ClassDecorator {
   if (filename === undefined) {
     filename = '.env';
   } else if (!filename.includes('.env') && !filename.includes('.ini')) {
-    filename += '.ini';
+    filename += '.env';
   }
 
   return (object: any): void => {
@@ -71,10 +51,12 @@ export function LoadFile(filename?: string, options?: ILoadFileOptions): ClassDe
         encoding: 'utf-8',
       }),
     );
+
     const columns: {
       name: string;
       type: Function;
-    }[] = INIStorage.get(object.name);
+    }[] = globalStorage.get(object.name);
+
     if (columns) {
       for (const index in parsedData) {
         const column: {
@@ -90,7 +72,7 @@ export function LoadFile(filename?: string, options?: ILoadFileOptions): ClassDe
         object[index] = column.type(parsedData[index]);
 
         // 인자로 true를 넣었을때만 반응
-        if (options?.withProcessEnv === true) {
+        if (!options?.localOnly) {
           process.env[index] = column.type(parsedData[index]);
         }
       }
