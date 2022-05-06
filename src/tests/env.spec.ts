@@ -1,6 +1,6 @@
 import { Column, LoadEnvironment } from '../index';
 
-@LoadEnvironment('config/test1')
+@LoadEnvironment('config/test1.ini')
 export class Environment1 {
   @Column()
   static NAME: string;
@@ -9,7 +9,7 @@ export class Environment1 {
   static MATH_SCORE: number;
 }
 
-@LoadEnvironment('config/test2')
+@LoadEnvironment('config/test2.ini')
 export class Environment2 {
   @Column()
   static NAME: string;
@@ -18,7 +18,7 @@ export class Environment2 {
   static SCIENCE_SCORE: number;
 }
 
-@LoadEnvironment('config/test3.env')
+@LoadEnvironment('config/test3')
 export class Environment3 {
   @Column()
   static NAME: string;
@@ -27,14 +27,20 @@ export class Environment3 {
   static MATH_SCORE: number;
 }
 
-@LoadEnvironment('config/test4.env', { localOnly: true })
+@LoadEnvironment('config/test4', { localOnly: true })
 export class Environment4 {
   @Column()
   static TEST: string;
 }
 
-@LoadEnvironment()
+@LoadEnvironment('config/test5')
 export class Environment5 {
+  @Column()
+  static MESSAGE: string;
+}
+
+@LoadEnvironment()
+export class Environment6 {
   @Column()
   static NAME: string;
 
@@ -63,8 +69,13 @@ describe('Environment Value', () => {
     expect(Environment4.TEST).toBe('hi');
   });
 
-  it('05_.env', () => {
-    expect(Environment5.NAME).toBe('ayame');
-    expect(Environment5.MATH_SCORE).toBe(88);
+  it('05_test5.env', () => {
+    expect(process.env.MESSAGE).toBe('Greetings');
+    expect(Environment5.MESSAGE).toBe('Greetings');
+  });
+
+  it('06_.env', () => {
+    expect(Environment6.NAME).toBe('ayame');
+    expect(Environment6.MATH_SCORE).toBe(88);
   });
 });
