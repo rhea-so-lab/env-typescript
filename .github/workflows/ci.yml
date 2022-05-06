@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Lint
+        run: npm run lint
+
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -25,7 +28,7 @@ jobs:
 
       - uses: artiomtr/jest-coverage-report-action@v2
         with:
-          test-script: npm run test:ci
+          test-script: npm run test
           threshold: 100
 
   pr-labeler:
