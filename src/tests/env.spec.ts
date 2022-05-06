@@ -1,7 +1,7 @@
-import { Column, LoadFile } from '../index';
+import { Column, LoadEnvironment } from '../index';
 
-@LoadFile('config/test1')
-export class INITest1 {
+@LoadEnvironment('config/test1')
+export class Environment1 {
   @Column()
   static NAME: string;
 
@@ -9,8 +9,8 @@ export class INITest1 {
   static MATH_SCORE: number;
 }
 
-@LoadFile('config/test2')
-export class INITest2 {
+@LoadEnvironment('config/test2')
+export class Environment2 {
   @Column()
   static NAME: string;
 
@@ -18,8 +18,8 @@ export class INITest2 {
   static SCIENCE_SCORE: number;
 }
 
-@LoadFile('config/test3.env')
-export class INITest3 {
+@LoadEnvironment('config/test3.env')
+export class Environment3 {
   @Column()
   static NAME: string;
 
@@ -27,17 +27,14 @@ export class INITest3 {
   static MATH_SCORE: number;
 }
 
-@LoadFile('config/test4.env', { withProcessEnv: true })
-export class INITest4 {
+@LoadEnvironment('config/test4.env', { localOnly: true })
+export class Environment4 {
   @Column()
-  static NAME: string;
-
-  @Column()
-  static MATH_SCORE: number;
+  static TEST: string;
 }
 
-@LoadFile()
-export class INITest5 {
+@LoadEnvironment()
+export class Environment5 {
   @Column()
   static NAME: string;
 
@@ -47,27 +44,27 @@ export class INITest5 {
 
 describe('Environment Value', () => {
   it('01_test1.ini', () => {
-    expect(INITest1.NAME).toBe('rhea');
-    expect(INITest1.MATH_SCORE).toBe(0);
+    expect(Environment1.NAME).toBe('rhea');
+    expect(Environment1.MATH_SCORE).toBe(0);
   });
 
   it('02_test2.ini', () => {
-    expect(INITest2.NAME).toBe('hades');
-    expect(INITest2.SCIENCE_SCORE).toBe(95);
+    expect(Environment2.NAME).toBe('hades');
+    expect(Environment2.SCIENCE_SCORE).toBe(95);
   });
 
   it('03_test3.env', () => {
-    expect(INITest3.NAME).toBe('rhea-so');
-    expect(INITest3.MATH_SCORE).toBe(10);
+    expect(Environment3.NAME).toBe('rhea-so');
+    expect(Environment3.MATH_SCORE).toBe(10);
   });
 
   it('04_test4.env', () => {
-    expect(process.env.NAME).toBe('naver');
-    expect(process.env.MATH_SCORE).toBe('50');
+    expect(process.env.TEST).toBeUndefined(); // local only
+    expect(Environment4.TEST).toBe('hi');
   });
 
   it('05_.env', () => {
-    expect(INITest5.NAME).toBe('ayame');
-    expect(INITest5.MATH_SCORE).toBe(88);
+    expect(Environment5.NAME).toBe('ayame');
+    expect(Environment5.MATH_SCORE).toBe(88);
   });
 });
