@@ -7,6 +7,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, 'NPMJS') }}
     permissions:
       contents: read
       packages: write
@@ -19,6 +20,7 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm version patch -f
+      - run: git commit --amend -m "NPMJS Publish - ${{github.event.head_commit.message}}"
       - run: git push origin production
       - run: npm run publish
         env:
