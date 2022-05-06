@@ -20,16 +20,16 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Publish Packages
-        run: |
-          echo '//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > .npmrc
-          cat .npmrc
       - run: npm install
       - run: npm run build
       - run: git config --global user.email "jeonghyeon.rhea@gmail.com"
       - run: git config --global user.name "rhea-so"
       - run: npm version patch -f
       - run: git commit --amend -m "NPMJS Publish - ${{github.event.head_commit.message}}"
+      - name: Publish Packages
+        run: |
+          echo '//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN  }}' > .npmrc
+          cat .npmrc
       - run: npm run publish
       - name: Push changes
         uses: ad-m/github-push-action@master
