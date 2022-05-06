@@ -23,7 +23,7 @@ jobs:
       - run: git config --global user.name "rhea-so"
       - run: npm version patch -f
       - run: git commit --amend -m "NPMJS Publish - ${{github.event.head_commit.message}}"
-      - run: git push origin production
+      - run: git push https://${{ secrets.REPO_PAT }}@github.com/rhea-so-lab/env-typescript.git origin production
       - run: npm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
