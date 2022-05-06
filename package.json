@@ -1,0 +1,59 @@
+{
+  "name": "env-typescript",
+  "version": "1.0.2",
+  "description": "new generation of env loader",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "publish": "bash .github/scripts/publish.sh",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "lint": "eslint \"src/**/**.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhea-so-lab/env-typescript"
+  },
+  "author": "rhea-so",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rhea-so-lab/env-typescript/issues"
+  },
+  "homepage": "https://github.com/rhea-so-lab/env-typescript#readme",
+  "devDependencies": {
+    "@types/ini": "^1.3.31",
+    "@types/jest": "^27.5.0",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.16",
+    "prettier": "^2.6.2",
+    "ts-jest": "^27.1.4",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "./",
+    "testRegex": "\\.spec.ts$",
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "coverageDirectory": "coverage",
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "ini": "^3.0.0",
+    "reflect-metadata": "^0.1.13"
+  }
+}
