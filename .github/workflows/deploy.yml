@@ -5,7 +5,7 @@ on:
       - 'production'
 
 jobs:
-  publish:
+  deploy:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, 'NPMJS') }}
     permissions:
@@ -19,6 +19,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
       - run: npm run build
+      - run: git config --global user.email "jeonghyeon.rhea@gmail.com"
+      - run: git config --global user.name "rhea-so"
       - run: npm version patch -f
       - run: git commit --amend -m "NPMJS Publish - ${{github.event.head_commit.message}}"
       - run: git push origin production
