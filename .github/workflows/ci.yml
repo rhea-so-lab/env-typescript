@@ -35,7 +35,6 @@ jobs:
       - uses: artiomtr/jest-coverage-report-action@v2
         with:
           test-script: npm run test
-          threshold: 100
 
   pr-labeler:
     if: ${{ github.event.action == 'opened' }}
