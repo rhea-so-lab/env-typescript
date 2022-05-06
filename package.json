@@ -1,6 +1,6 @@
 {
   "name": "env-typescript",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "new generation of env loader",
   "main": "index.js",
   "scripts": {
